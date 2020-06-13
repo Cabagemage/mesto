@@ -1,0 +1,19 @@
+@import url(./__close/popup__close.css);
+@import url(./__container/popup__container.css);
+@import url(./__info/popup__info.css);
+@import url(./__input/popup__input.css);
+@import url(./__name/popup__name.css);
+@import url(./__save/popup__save.css);
+@import url(./_get_opened/popup_get_opened.css);
+
+.popup{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    }

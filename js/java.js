@@ -32,8 +32,8 @@ function formSubmitHandler (evt) {
     profileName.textContent = inputName.value;
     profileJob.textContent = inputJob.value;
     
-    inputName.value = '';
-    inputJob.value = '';
+    inputName.value = 'Жак-Ив Кусто';
+    inputJob.value = 'Исследователь океана';
     console.log('formSubmitHandler');
 }
 

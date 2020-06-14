@@ -2,6 +2,7 @@
 @import url(./__like-button/elements__like-button.css);
 @import url(./__photo/elements__photo.css);
 @import url(./__title/elements__title.css);
+@import url(./__textbox/elements__textbox.css);
 
 .elements{
     max-width: 882px;
@@ -9,10 +10,16 @@
     display: grid;
     margin: 0 auto;
     grid-template-columns: repeat(auto-fit, minmax(282px, 1fr)); 
-    grid-template-rows: repeat(auto-fit, minmax(100px, 1fr)); 
     grid-gap: 20px 18px;  
     list-style: none; 
     font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
     color: black;
     margin-bottom: 66px;
 }
+
+@media screen and (max-width: 650px) {
+    .elements{
+   max-width: 282px;
+}
+
+} 

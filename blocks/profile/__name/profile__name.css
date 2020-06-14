@@ -1,8 +1,16 @@
 .profile__name{
-    display: inline-block;
     margin: 0;
+    width: 100%;
     font-style: normal;
     font-weight: 500;
     font-size: 42px;
     line-height: 56px;
+    text-align: center;
     }
+
+    @media screen and (max-width: 650px) {
+        .profile__name{
+        font-size: 27px;
+    }
+    
+    } 

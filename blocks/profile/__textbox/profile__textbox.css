@@ -1,11 +1,13 @@
 .profile__textbox{
     display: flex;
+    width: 100%;
     flex-direction: row;
     align-items: center;
     }
  @media screen and (max-width: 650px) {
         .profile__textbox{
         flex-direction: column;
+        padding-bottom: 36px;
     }
     
     } 

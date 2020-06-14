@@ -7,3 +7,10 @@
     padding-top: 45px;
     margin-bottom: 40px;
     }
+
+    @media screen and (max-width: 650px) {
+        .header{
+        max-width: 324px;
+    }
+    
+    } 

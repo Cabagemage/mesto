@@ -1,16 +1,25 @@
 .profile__info{
-    width: 336px;
+    max-width: 336px;
     font-style: normal;
     font-weight: normal;
     font-size: 18px;
     line-height: 22px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding-left: 30px;
     }
+    
+
 
     @media screen and (max-width: 650px) {
-        .profile__name{
+        .profile__info{
         font-size: 14px;
         line-height: 17px;
-        
+        padding-bottom: 14px;
+        text-align: center;
+        padding-left: 0;
     }
     
     } 

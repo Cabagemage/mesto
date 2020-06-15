@@ -1,6 +1,19 @@
+@import url(./__copyright/footer__copyright.css);
 .footer{
     background-color: black;
     max-width: 318px;
-    padding-left: 199px;
     padding-bottom: 60px;
+    }
+
+@media screen and (max-width: 768px){
+        .footer{
+           text-align: center;
+        }
+    }
+
+
+@media screen and (max-width: 650px){
+        .footer{
+            padding: 0 19px 30px 19px;
+        }
     }

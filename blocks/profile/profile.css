@@ -19,6 +19,17 @@
     align-items: center;
     }
 
+
+    @media screen and (max-width: 900px) {
+        .profile{
+        max-width: 700px;
+        margin-bottom: 36px;
+        padding-left: 19px;
+        padding-right: 19px;
+    }
+    
+    } 
+
     @media screen and (max-width: 650px) {
         .profile{
         max-width: 282px;
@@ -27,3 +38,4 @@
     }
     
     } 
+

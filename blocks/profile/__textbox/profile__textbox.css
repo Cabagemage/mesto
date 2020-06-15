@@ -1,13 +1,17 @@
 .profile__textbox{
-    display: flex;
+    width: 336px;   
+    
     width: 100%;
-    flex-direction: row;
+    box-sizing: border-box;
+    
     align-items: center;
+    margin: 0 auto;
     }
  @media screen and (max-width: 650px) {
         .profile__textbox{
         flex-direction: column;
         padding-bottom: 36px;
+        align-items: center;
     }
     
     } 

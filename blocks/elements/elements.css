@@ -9,15 +9,28 @@
     width: 100%;
     display: grid;
     margin: 0 auto;
-    grid-template-columns: repeat(auto-fit, minmax(282px, 1fr)); 
+    grid-template-columns: repeat(auto-fill, minmax(282px, 1fr)); 
     grid-gap: 20px 18px;  
     list-style: none; 
     font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
     color: black;
     margin-bottom: 66px;
 }
+@media screen and (max-width:   880px) {
+    .elements{
+   max-width: 650px;
+}
+
+} 
 
 @media screen and (max-width: 650px) {
+    .elements{
+   max-width: 300px;
+}
+
+} 
+
+@media screen and (max-width: 450px) {
     .elements{
    max-width: 282px;
 }

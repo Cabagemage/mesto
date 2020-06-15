@@ -1,11 +1,11 @@
-@import url(./_get_opened/popup_get_opened.css);
 @import url(./__close/popup__close.css);
 @import url(./__container/popup__container.css);
 @import url(./__info/popup__info.css);
 @import url(./__input/popup__input.css);
 @import url(./__name/popup__name.css);
 @import url(./__save/popup__save.css);
-
+@import url(.__edit/popup__edit.css);
+@import url(./__inputs/popup__inputs.css);
 
 .popup{
     display: none;
@@ -18,4 +18,5 @@
     justify-content: center;
     align-items: center;
     font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+
     }

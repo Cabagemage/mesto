@@ -4,9 +4,10 @@
     width: 100%;
     margin: 0 auto;
     max-width: 882px;
-    padding-top: 45px;
+    margin-top: 45px;
     margin-bottom: 40px;
     }
+
 
     @media screen and (max-width: 650px) {
         .header{

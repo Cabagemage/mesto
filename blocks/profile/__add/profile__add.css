@@ -5,6 +5,9 @@
     width: 100%;
     height: 50px;
     border-color: 1px solid white;
+    background-image: url(../../../images/add.svg);
+    background-repeat: no-repeat;
+    background-position: center;
     }
     .profile__add:hover{
     opacity: 0.6;

@@ -1,9 +1,3 @@
-@import url(./__grid-card/elements__grid-card.css);
-@import url(./__like-button/elements__like-button.css);
-@import url(./__photo/elements__photo.css);
-@import url(./__title/elements__title.css);
-@import url(./__textbox/elements__textbox.css);
-
 .elements{
     max-width: 882px;
     width: 100%;

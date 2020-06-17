@@ -1,3 +1,6 @@
+/*Добрый вечер! Огромное спасибо за такое содержательное ревью, насчёт задержки я так понимаю, что вы очень сильно загружены, поэтому всё ок :) 
+Спасибо ещё раз.*/
+
 @import url(../vendor/normalize.css);
 @import url(../vendor/fonts/fonts.css);
 @import url(../blocks/content/content.css);
@@ -5,7 +8,10 @@
 @import url(../blocks/header/header.css);
 @import url(../blocks/profile/profile.css);
 @import url(../blocks/popup/popup.css);
-@import url(../blocks/popup/_get_opened/popup_get_opened.css);
+@import url(../blocks/grid-card/grid-card.css);
+@import url(../blocks/popup/_opened/popup_opened.css);
+@import url(../blocks/popup/__input/_type/popup__input_type_job.css); /*Модификатор вынесен в index.css для повышения его приоритета*/
+@import url(../blocks/popup/__input/_type/popup__input_type_name.css); /*Модификатор вынесен в index.css для повышения его приоритета*/
 @import url(../blocks/elements/elements.css);
 @import url(../blocks/footer/footer.css);
 

@@ -13,3 +13,13 @@
 .profile__edit:hover{
     opacity: 0.6;
 }
+
+@media screen and (max-width: 650px) {
+    .profile__edit{
+    width: 18px;
+    height: 18px;
+    
+    
+}
+
+} 

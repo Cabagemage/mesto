@@ -4,4 +4,11 @@
     width: 100%;
     }
 
-  
+    @media screen and (max-width: 650px) {
+        .profile__image{
+        padding-bottom: 14px;
+        
+        
+    }
+    
+    } 

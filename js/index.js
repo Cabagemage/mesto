@@ -11,7 +11,6 @@ function  popupOpen(){
 popup.classList.add('popup_opened');
 inputName.value = profileName.textContent;
 inputJob.value = profileJob.textContent;
-
 }
 
 function popupClose(e){
@@ -20,8 +19,8 @@ popup.classList.remove('popup_opened');
 }
 
 function formSubmitHandler (evt) {
-    evt.preventDefault();
-    popup.classList.remove('popup_opened');
+    evt.preventDefault();   
+    popupClose();
     profileName.textContent = inputName.value;
     profileJob.textContent = inputJob.value;
 

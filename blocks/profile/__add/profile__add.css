@@ -9,6 +9,7 @@
     background-repeat: no-repeat;
     background-position: center;
     cursor: pointer;
+    box-sizing: border-box;
     }
     .profile__add:hover{
     opacity: 0.6;
@@ -16,7 +17,8 @@
 
     @media screen and (max-width: 650px) {
         .profile__add{
-        max-width: 200px;
+        max-width: 282px;
+        
         
     }
     

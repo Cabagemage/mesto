@@ -3,7 +3,7 @@
 @import url(./__photo/elements__photo.css);
 @import url(./__title/elements__title.css);
 @import url(./__textbox/elements__textbox.css);
-
+@import url(./__remove/elements__remove.css);
 .elements{
     max-width: 882px;
     width: 100%;

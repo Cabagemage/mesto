@@ -99,7 +99,6 @@ function CloseByOverlay(e){
 if(e.target !== e.currentTarget){
   return
 }
-console.log (e.target);
 popupToggle(popup);
 }
 popup.addEventListener('click', CloseByOverlay);

@@ -1,0 +1,18 @@
+.grid-card__remove{
+    width: 18px;
+    height: 19px;
+    padding: 0;
+    border: 0;
+    background-image: url(../../../images/delete.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: transparent;
+    background-size: cover;
+    position: absolute;
+    top: 18px;
+    right: 15px;
+    cursor: pointer;
+}
+.grid-card__remove:hover{
+opacity: 0.6;
+}

@@ -29,61 +29,13 @@
             </section>
 
             <section class="elements">
-                
-                <div class="grid-card">
-                    <img class="grid-card__photo" src="./images/Lena-min.jpg" alt="Река Лена">
-                    <div class="grid-card__textbox">
-                        <h2 class="grid-card__title">Река Лена</h2>
-                        <button type="button" class="grid-card__like-button"></button>
-                    </div>
-                </div>
-                <div class="grid-card">
-                    <img class="grid-card__photo" src="./images/Magadan-min.jpg" alt="Магадан">
-                    <div class="grid-card__textbox">
-                        <h2 class="grid-card__title">Магадан</h2>
-                        <button type="button" class="grid-card__like-button"></button>
-                    </div>
-                </div>
-
-                <div class="grid-card">
-                    <img class="grid-card__photo" src="./images/Sakhalin-min.jpg" alt="Сахалин">
-                    <div class="grid-card__textbox">
-                        <h2 class="grid-card__title">Остров Сахалин</h2>
-                        <button type="button" class="grid-card__like-button"></button>
-                    </div>
-
-                </div>
-
-                <div class="grid-card">
-                    <img class="grid-card__photo" src="./images/Tmutarakan-min.jpg" alt="Тьмутаракань">
-                    <div class="grid-card__textbox">
-                        <h2 class="grid-card__title">Тмутаракань</h2>
-                        <button type="button" class="grid-card__like-button"></button>
-                    </div>
-                </div>
-
-                <div class="grid-card">
-                    <img class="grid-card__photo" src="./images/Chukotka-min.jpg" alt="Чукотка">
-                    <div class="grid-card__textbox">
-                        <h2 class="grid-card__title">Чукотка</h2>
-                        <button type="button" class="grid-card__like-button"></button>
-                    </div>
-
-                </div>
-
-                <div class="grid-card">
-                    <img class="grid-card__photo" src="./images/kirill-pershin-1088404.jpg" alt="Карачаево-Черкасск">
-                    <div class="grid-card__textbox">
-                        <h2 class="grid-card__title">Карачаево-Черкасск</h2>
-                        <button type="button" class="grid-card__like-button"></button>
-                    </div>
-                </div>
+              
             </section>
 
-            <div class="popup">
-                <form class="popup__form">
+            <div class="popup popup_function_edit">
+                <form class="popup__form popup__form_function_edit">
                     <div class="popup__container">
-                        <button type="button" class="popup__close"></button>
+                        <button type="button" class="popup__close popup_close_edit"></button>
                         <h2 class="popup__edit">Редактировать профиль</h2>
                         <div class="popup__inputs">
                             <input type="text" name="name" required  class="popup__input popup__input_type_name" placeholder="Имя">
@@ -92,6 +44,27 @@
                     </div>
                 </form>
             </div>
+    
+            <div class="popup popup_function_add">
+                <form class="popup__form popup__form_function_add">
+                    <div class ="popup__container">
+                        <button type="button" class="popup__close popup_close_add"></button>
+                        <h2 class="popup__edit">Новое место</h2>
+                        <div class="popup__inputs">
+                            <input type="text" name="place" required  class="popup__input popup__input_type_place" placeholder="Место">
+                            <input type="text" name="link" required class="popup__input popup__input_type_link" placeholder="Ссылка"></div>
+                        <button type="submit" class="popup__save popup__save_function_create">Создать</button>
+                    </div>
+                </form>
+            </div>
+            <div class="popup popup_function_image">
+                <div class ="popup__container popup__container_function_image">
+                        <button type="button" class="popup__close popup__close_current_image"></button>
+                       <img class = "popup__container popup__container_content_img">
+                       <h2 class = "popup__container popup__container_content_name"></h2>
+                    </div>
+            </div>
+
         </main>
 
         <footer class="footer">
@@ -99,7 +72,16 @@
         </footer>
 
     </div>
-
+<template class = "grid-card-template">                
+        <div class="grid-card">
+            <img class="grid-card__photo">
+            <button class="grid-card__remove"></button>
+            <div class="grid-card__textbox">
+                <h2 class="grid-card__title"></h2>
+                <button type="button" class="grid-card__like-button like-button_like_active"></button>
+            </div>
+        </div>
+</template>
     <script src="./js/index.js"></script>
     
 </body>

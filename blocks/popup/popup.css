@@ -4,8 +4,9 @@
 @import url(./__save/popup__save.css);
 @import url(./__edit/popup__edit.css);
 @import url(./__inputs/popup__inputs.css);
+
 .popup{
-    display: none;
+    display: flex;
     position: fixed;
     top: 0;
     left: 0;
@@ -15,5 +16,8 @@
     justify-content: center;
     align-items: center;
     font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.5s, opacity 0.5s linear;
     }
 

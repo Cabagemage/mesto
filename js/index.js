@@ -1,3 +1,4 @@
+import {initialCards} from './utils.js';
 const popupButtonEdit = document.querySelector('.profile__edit');
 const popupButtonAdd = document.querySelector('.profile__add');
 //popups
@@ -8,7 +9,6 @@ const popupOpenImage = document.querySelector('.popup_function_image');
 const popupImageWindow = document.querySelector('.popup__container_content_img');
 const popupImageText = document.querySelector('.popup__container_content_name');
 //close popups
-const closePopup = popup.querySelector('.popup__close');
 const closePopupEdit = popupEdit.querySelector('.popup_close_edit');
 const closePopupAdd = popupAdd.querySelector('.popup_close_add');
 const closePopupImage = popupOpenImage.querySelector('.popup__close_current_image');
@@ -23,35 +23,7 @@ const inputPlace = document.querySelector('.popup__input_type_place');
 const inputLink = document.querySelector('.popup__input_type_link');
 const gridCardsTemplateElement = document.querySelector('.grid-card-template') 
 const gridCardElements = document.querySelector('.elements');
-const removeCardButton = document.querySelector('.grid-card__remove');
-const likeButton = document.querySelector('.grid-card__like-button_like_active');
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  },
 
-];
 
 function cardContent(item){
 const gridCard = gridCardsTemplateElement.content.cloneNode(true);
@@ -92,16 +64,15 @@ function removeCard(e){
 function  popupToggle(popup){
 popup.classList.toggle('popup_opened');
 }
-function popupRemove(popup){
-  popup.classList.remove('popup_opened');
-}
-function CloseByOverlay(e){
+
+function closeByOverlay(e){
 if(e.target !== e.currentTarget){
   return
 }
 popupToggle(popup);
 }
-popup.addEventListener('click', CloseByOverlay);
+
+popup.addEventListener('click', closeByOverlay);
 
 closePopupEdit.addEventListener('click', function() {
 popupToggle(popup);

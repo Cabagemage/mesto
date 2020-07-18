@@ -1,6 +1,4 @@
-.popup__container_function_image{
-    max-width: 75vw;
-    max-height: 75vh;
-    background-color: transparent;
-    padding-bottom: 0;
-}
+.popup__container_function_image{ 
+    background-color: transparent; 
+    padding-bottom: 0; 
+} 

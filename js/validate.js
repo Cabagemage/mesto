@@ -8,7 +8,6 @@ const enableValidation = ({ formSelector, ...rest }) => {
     })
   })
 }
-
 // Функция нахождения инпутов
 const checkInputs = (form, { inputSelector, ...rest }) => {
   const input = form.querySelectorAll(inputSelector)
@@ -21,7 +20,6 @@ const checkInputs = (form, { inputSelector, ...rest }) => {
     });
   })
 }
-
 // Функция переключения кнопок
 const toggleButtons = (currentInput, form, inputArray, { submitButtonSelector, inactiveButtonClass, ...rest }) => {
   const buttonActive = form.querySelector(submitButtonSelector);
@@ -34,7 +32,6 @@ const toggleButtons = (currentInput, form, inputArray, { submitButtonSelector, i
     buttonActive.setAttribute('disabled', true);
   }
 }
-
 //Функция проверки валидности конкретного инпута
 const checkValidity = (currentInput, inputArray) => {
   {
@@ -43,7 +40,6 @@ const checkValidity = (currentInput, inputArray) => {
     });
   }
 }
-
 // Функция вывода или сокрытия ошибки. 
 const getError = (form, currentInput, rest) => {
 
@@ -52,21 +48,18 @@ const getError = (form, currentInput, rest) => {
   }
   else { removeInputError(form, currentInput, rest) }
 }
-
 //Функция нахождения поля ошибки. 
 const getErrorPlace = (currentInput) => {
   const getInputName = currentInput.getAttribute('name');
   const errorPlace = document.getElementById(`${getInputName}-error`);
   return errorPlace;
 }
-
 // Функция, которая добавляет ошибку
 const showInputError = (form, currentInput, { errorClass, ...rest }) => {
   const errorPlace = getErrorPlace(currentInput);
   errorPlace.classList.add(errorClass);
   errorPlace.textContent = currentInput.validationMessage;
 };
-
 // Функция, которая скрывает ошибку
 const removeInputError = (form, currentInput, { inputErrorClass }, rest) => {
   const errorPlace = getErrorPlace(currentInput)

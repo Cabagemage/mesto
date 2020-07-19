@@ -22,15 +22,12 @@ const inputLink = document.querySelector('.popup__input_type_link');
 const gridCardsTemplateElement = document.querySelector('.grid-card-template')
 const gridCardElements = document.querySelector('.elements');
 
-
-
-
 function createNewCard(item) {
   const gridCard = gridCardsTemplateElement.content.cloneNode(true);
   const gridCardPhoto = gridCard.querySelector('.grid-card__photo');
   const gridCardTitle = gridCard.querySelector('.grid-card__title');
   gridCardTitle.textContent = item.name;
-  gridCardPhoto.src = item.link;;
+  gridCardPhoto.src = item.link;
   gridCardPhoto.alt = `Изображение не загрузилось`;
   gridCard.querySelector('.grid-card__remove').addEventListener('click', removeCard);
   gridCard.querySelector('.grid-card__like-button').addEventListener('click', toggleLike);
@@ -67,8 +64,6 @@ function openImagePopup(item) {
   openPopup(popupOpenImage);
 }
 
-
-
 function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keyup', closeByEscape);
@@ -86,7 +81,11 @@ closePopup(closeEachPopup)
   }
 }
 
-
+function disableButton(){
+  const buttonCreate = document.querySelector('.popup__save_function_create')
+  buttonCreate.setAttribute('disabled', true);
+  buttonCreate.classList.add('popup__save_disabled')
+}
 
 function toggleLike(e) {
   const gridCard = e.target.closest('.grid-card__like-button');
@@ -102,8 +101,6 @@ const closeByOverlay = function (e) {
   if (e.target !== e.currentTarget) { return }
   closePopup(e.currentTarget);
 }
-
-
 
 closePopupEdit.addEventListener('click', function () {
   closePopup(popupEdit);
@@ -121,6 +118,7 @@ popupButtonEdit.addEventListener('click', function () {
 
 popupButtonAdd.addEventListener('click', function () {
   openPopup(popupAdd);
+  disableButton();
 })
 
 closePopupImage.addEventListener('click', function () {
@@ -136,11 +134,9 @@ popupEdit.addEventListener('click', closeByOverlay);
 popupOpenImage.addEventListener('click', closeByOverlay);
 popupAdd.addEventListener('click', closeByOverlay);
 
-
 formElementEdit.addEventListener('submit', function (evt) {
   evt.preventDefault();
   profileName.textContent = inputName.value;
   profileJob.textContent = inputJob.value;
   closePopup(popupEdit);
-
 });

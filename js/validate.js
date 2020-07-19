@@ -1,3 +1,12 @@
+const config = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__save',
+  inactiveButtonClass: 'popup__save_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+}
+
 const enableValidation = ({ formSelector, ...rest }) => {
   const forms = document.querySelectorAll(formSelector);
   const formsArray = Array.from(forms);
@@ -21,6 +30,11 @@ const checkInputs = (form, { inputSelector, ...rest }) => {
   })
 }
 // Функция переключения кнопок
+function disableButton(buttonActive, inactiveButtonClass){
+  buttonActive.classList.add(inactiveButtonClass);
+  buttonActive.setAttribute('disabled', true);
+}
+
 const toggleButtons = (currentInput, form, inputArray, { submitButtonSelector, inactiveButtonClass, ...rest }) => {
   const buttonActive = form.querySelector(submitButtonSelector);
   if (checkValidity(currentInput, inputArray)) {
@@ -28,8 +42,7 @@ const toggleButtons = (currentInput, form, inputArray, { submitButtonSelector, i
     buttonActive.removeAttribute('disabled');
   }
   else {
-    buttonActive.classList.add(inactiveButtonClass);
-    buttonActive.setAttribute('disabled', true);
+    disableButton(buttonActive, inactiveButtonClass);
   }
 }
 //Функция проверки валидности конкретного инпута
@@ -75,3 +88,4 @@ enableValidation({
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__error_visible'
 });
+

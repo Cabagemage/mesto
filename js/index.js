@@ -21,6 +21,8 @@ const inputPlace = document.querySelector('.popup__input_type_place');
 const inputLink = document.querySelector('.popup__input_type_link');
 const gridCardsTemplateElement = document.querySelector('.grid-card-template')
 const gridCardElements = document.querySelector('.elements');
+const buttonCreateCard = document.querySelector('.popup__save_function_create');
+
 
 function createNewCard(item) {
   const gridCard = gridCardsTemplateElement.content.cloneNode(true);
@@ -81,12 +83,6 @@ closePopup(closeEachPopup)
   }
 }
 
-function disableButton(){
-  const buttonCreate = document.querySelector('.popup__save_function_create')
-  buttonCreate.setAttribute('disabled', true);
-  buttonCreate.classList.add('popup__save_disabled')
-}
-
 function toggleLike(e) {
   const gridCard = e.target.closest('.grid-card__like-button');
   gridCard.classList.toggle('grid-card__like-button_like_active');
@@ -118,7 +114,7 @@ popupButtonEdit.addEventListener('click', function () {
 
 popupButtonAdd.addEventListener('click', function () {
   openPopup(popupAdd);
-  disableButton();
+  disableButton(buttonCreateCard, config.inactiveButtonClass)
 })
 
 closePopupImage.addEventListener('click', function () {

@@ -22,7 +22,7 @@ const inputLink = document.querySelector('.popup__input_type_link');
 const gridCardsTemplateElement = document.querySelector('.grid-card-template')
 const gridCardElements = document.querySelector('.elements');
 const buttonCreateCard = document.querySelector('.popup__save_function_create');
-
+const buttonSaveProfile = document.querySelector('.popup__save_function_edit')
 
 function createNewCard(item) {
   const gridCard = gridCardsTemplateElement.content.cloneNode(true);
@@ -108,6 +108,7 @@ closePopupAdd.addEventListener('click', function () {
 
 popupButtonEdit.addEventListener('click', function () {
   openPopup(popupEdit);
+  enableButton(buttonSaveProfile, config.inactiveButtonClass)
   inputName.value = profileName.textContent;
   inputJob.value = profileJob.textContent;
 })

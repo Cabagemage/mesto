@@ -29,17 +29,21 @@ const checkInputs = (form, { inputSelector, ...rest }) => {
     });
   })
 }
-// Функция переключения кнопок
+
 function disableButton(buttonActive, inactiveButtonClass){
   buttonActive.classList.add(inactiveButtonClass);
   buttonActive.setAttribute('disabled', true);
 }
 
+function enableButton(buttonActive, inactiveButtonClass){
+  buttonActive.classList.remove(inactiveButtonClass);
+  buttonActive.removeAttribute('disabled');
+}
+
 const toggleButtons = (currentInput, form, inputArray, { submitButtonSelector, inactiveButtonClass, ...rest }) => {
   const buttonActive = form.querySelector(submitButtonSelector);
   if (checkValidity(currentInput, inputArray)) {
-    buttonActive.classList.remove(inactiveButtonClass);
-    buttonActive.removeAttribute('disabled');
+   enableButton(buttonActive, inactiveButtonClass)
   }
   else {
     disableButton(buttonActive, inactiveButtonClass);

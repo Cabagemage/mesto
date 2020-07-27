@@ -1,95 +1,93 @@
+export {config, FormValidator};
+
 const config = {
-  formSelector: '.popup__form',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__save',
   inactiveButtonClass: 'popup__save_disabled',
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__error_visible'
 }
-
-const enableValidation = ({ formSelector, ...rest }) => {
-  const forms = document.querySelectorAll(formSelector);
-  const formsArray = Array.from(forms);
-  formsArray.forEach(form => {
-    checkInputs(form, rest)
-    form.addEventListener('submit', function (evt) {
-      evt.preventDefault();
-    })
-  })
+const form = {
+  formSelector: '.popup__form'
 }
-// Функция нахождения инпутов
-const checkInputs = (form, { inputSelector, ...rest }) => {
-  const input = form.querySelectorAll(inputSelector)
-  const inputArray = Array.from(input);
-  inputArray.forEach(currentInput => {
-    toggleButtons(currentInput, form, inputArray, rest)
-    currentInput.addEventListener('input', function () {
-      toggleButtons(currentInput, form, inputArray, rest)
-      getError(form, currentInput, rest)
+
+class FormValidator {
+  constructor(config, form) {
+    this._inputSelector = config.inputSelector;
+    this._submitButtonSelector = config.submitButtonSelector;
+    this._inactiveButtonClass = config.inactiveButtonClass;
+    this._inputErrorClass = config.inputErrorClass;
+    this._errorClass = config.errorClass;
+    this._form = form;
+  }
+
+  enableValidation = () => {
+  this._checkInputs(this._form)
+      this._form.addEventListener('submit', function (evt) {
+        evt.preventDefault()
+      })
+  }
+
+  _checkInputs = (form) => {
+    this._inputList = Array.from(form.querySelectorAll(this._inputSelector));
+    this._buttonActive = form.querySelector(this._submitButtonSelector);
+    this._inactiveButton = form.querySelector(this._inactiveButtonClass);
+    this._inputList.forEach(currentInput => {
+      this._toggleButtons(currentInput, this._inputList)
+      currentInput.addEventListener('input', () => {
+        this._toggleButtons(currentInput, this._inputList)
+        this._getError(currentInput)
+      })
     });
-  })
-}
 
-function disableButton(buttonActive, inactiveButtonClass){
-  buttonActive.classList.add(inactiveButtonClass);
-  buttonActive.setAttribute('disabled', true);
-}
-
-function enableButton(buttonActive, inactiveButtonClass){
-  buttonActive.classList.remove(inactiveButtonClass);
-  buttonActive.removeAttribute('disabled');
-}
-
-const toggleButtons = (currentInput, form, inputArray, { submitButtonSelector, inactiveButtonClass, ...rest }) => {
-  const buttonActive = form.querySelector(submitButtonSelector);
-  if (checkValidity(currentInput, inputArray)) {
-   enableButton(buttonActive, inactiveButtonClass)
   }
-  else {
-    disableButton(buttonActive, inactiveButtonClass);
+  _enableButton = () => {
+    this._buttonActive.classList.remove('popup__save_disabled');
+    this._buttonActive.removeAttribute('disabled');
   }
-}
-//Функция проверки валидности конкретного инпута
-const checkValidity = (currentInput, inputArray) => {
-  {
-    return inputArray.every(function (currentInput) {
+  _disableButton = () => {
+    this._buttonActive.classList.add('popup__save_disabled');
+    this._buttonActive.setAttribute('disabled', true);
+  }
+
+  resetForm = () =>{
+    this._disableButton();
+   } 
+  saveFormResult = () => {
+    this._enableButton();
+  }
+
+  _toggleButtons = (currentInput) => {
+    if (this._checkValidity(currentInput, this._inputList)) {
+      this._enableButton();
+    }
+    else {
+      this._disableButton();
+    }
+  }
+  _checkValidity = (currentInput) => {
+    return this._inputList.every(function (currentInput) {
       return currentInput.validity.valid;
     });
   }
-}
-// Функция вывода или сокрытия ошибки. 
-const getError = (form, currentInput, rest) => {
-
-  if (!currentInput.validity.valid) {
-    showInputError(form, currentInput, rest)
+  
+  _showInputError = (currentInput) => {
+    const errorPlace = this._getErrorPlace(currentInput);
+    errorPlace.classList.add(this._errorClass);
+    errorPlace.textContent = currentInput.validationMessage;
   }
-  else { removeInputError(form, currentInput, rest) }
+  _removeInputError(currentInput) {
+    const errorPlace = this._getErrorPlace(currentInput)
+    errorPlace.classList.remove(this._inputErrorClass)
+    errorPlace.textContent = '';
+  }
+  _getError = (currentInput) => {
+    if (!currentInput.validity.valid) { this._showInputError(currentInput) }
+    else { this._removeInputError(currentInput) }
+  }
+  _getErrorPlace(currentInput) {
+    const getInputName = currentInput.getAttribute('name');
+    const errorPlace = document.getElementById(`${getInputName}-error`);
+    return errorPlace;
+  }
 }
-//Функция нахождения поля ошибки. 
-const getErrorPlace = (currentInput) => {
-  const getInputName = currentInput.getAttribute('name');
-  const errorPlace = document.getElementById(`${getInputName}-error`);
-  return errorPlace;
-}
-// Функция, которая добавляет ошибку
-const showInputError = (form, currentInput, { errorClass, ...rest }) => {
-  const errorPlace = getErrorPlace(currentInput);
-  errorPlace.classList.add(errorClass);
-  errorPlace.textContent = currentInput.validationMessage;
-};
-// Функция, которая скрывает ошибку
-const removeInputError = (form, currentInput, { inputErrorClass }, rest) => {
-  const errorPlace = getErrorPlace(currentInput)
-  errorPlace.classList.remove(inputErrorClass)
-  errorPlace.textContent = '';
-}
-
-enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__save',
-  inactiveButtonClass: 'popup__save_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-});
-

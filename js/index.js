@@ -1,3 +1,5 @@
+import {config, FormValidator} from './validate.js'
+import {initialCards} from './utils.js';
 const popupButtonEdit = document.querySelector('.profile__edit');
 const popupButtonAdd = document.querySelector('.profile__add');
 //popups
@@ -24,47 +26,93 @@ const gridCardElements = document.querySelector('.elements');
 const buttonCreateCard = document.querySelector('.popup__save_function_create');
 const buttonSaveProfile = document.querySelector('.popup__save_function_edit')
 
-function createNewCard(item) {
-  const gridCard = gridCardsTemplateElement.content.cloneNode(true);
-  const gridCardPhoto = gridCard.querySelector('.grid-card__photo');
-  const gridCardTitle = gridCard.querySelector('.grid-card__title');
-  gridCardTitle.textContent = item.name;
-  gridCardPhoto.src = item.link;
-  gridCardPhoto.alt = `Изображение не загрузилось`;
-  gridCard.querySelector('.grid-card__remove').addEventListener('click', removeCard);
-  gridCard.querySelector('.grid-card__like-button').addEventListener('click', toggleLike);
-  gridCardPhoto.addEventListener('click', () => openImagePopup(item))
-  return gridCard;
+const formValidAdd  = new FormValidator(config, formElementAdd);
+formValidAdd.enableValidation();
+const formValidEdit  = new FormValidator(config, formElementEdit);
+formValidEdit.enableValidation();
+
+class Card {
+  constructor(data) {
+    this.name = data.name;
+    this.link = data.link;
+  }
+  // метод получение темплейта 
+  _gridCardTemplate() {
+    const gridCard = document
+      .querySelector('.grid-card-template')
+      .content
+      .querySelector('.grid-card')
+      .cloneNode(true);
+    return gridCard
+  }
+
+  generateCard() {
+    this._element = this._gridCardTemplate();
+    this._element.querySelector('.grid-card__photo').src = this.link;
+    this._element.querySelector('.grid-card__photo').alt = `${this.name}`;
+    this._element.querySelector('.grid-card__title').textContent = this.name;
+    this._setEventListeners();
+    return this._element;
+  }
+  // метод удаления карточки
+  _handleRemoveCard() {
+    this._element.remove();
+  }
+  // метод установки или удаления лайка
+  _handleLikeCard() {
+    this._element.querySelector('.grid-card__like-button').classList.toggle('grid-card__like-button_like_active');
+  }
+  //Метод открытия попапа с изображением
+  _handleOpenPopup() {
+    const image = this.link;
+    const name = this.name;
+    popupImageWindow.src = image;
+    popupImageText.textContent = `${name}`;
+    popupImageWindow.alt = `${name}`;
+    popupOpenImage.classList.add('popup_opened');
+  }
+//Метод установки слушателей 
+  _setEventListeners() {
+    this._element.querySelector('.grid-card__photo').addEventListener('click', () => {
+      this._handleOpenPopup();
+      document.addEventListener('keyup', closeByEscape);
+    });
+    {
+      this._element.querySelector('.grid-card__like-button').addEventListener('click', () => {
+        this._handleLikeCard();
+      });
+    }
+    {
+      this._element.querySelector('.grid-card__remove').addEventListener('click', () => {
+        this._handleRemoveCard();
+      });
+    }
+  }
 }
 
-function renderCards(gridCard) {
-  gridCardElements.prepend(gridCard);
-}
-
-const addNewCard = (gridCard) => {
+const addNewCard = () => {
   const nameAndLink = {
     name: inputPlace.value,
     link: inputLink.value,
   };
-  renderCards(createNewCard(nameAndLink, gridCard))
+  const renderNewCard = new Card(nameAndLink);
+  const gridCard = renderNewCard.generateCard();
+  renderCards(gridCard);
   closePopup(popupAdd)
   inputPlace.value = '';
   inputLink.value = ''
 }
 
-initialCards.forEach(item => {
-  const gridCard = createNewCard(item)
-  renderCards(gridCard, item)
-});
+const renderCards = (gridCard) => {
+  document.querySelector('.elements').prepend(gridCard)
+  }
 
-function openImagePopup(item) {
-  const image = item.link;
-  const name = item.name;
-  popupImageWindow.src = image;
-  popupImageText.textContent = name;
-  popupImageWindow.alt = `Изображение не загрузилось`;
-  openPopup(popupOpenImage);
-}
+//Цикл перебора карточек
+initialCards.forEach(item => {
+  const card = new Card(item, '.grid-card-template')
+  const gridCard = card.generateCard();
+  renderCards(gridCard);
+});
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
@@ -76,21 +124,11 @@ function closePopup(popup) {
   document.removeEventListener('keyup', closeByEscape);
 }
 
-function closeByEscape(evt){
+function closeByEscape(evt) {
   const closeEachPopup = document.querySelector('.popup_opened');
-  if (evt.key === 'Escape') { 
-closePopup(closeEachPopup)
+  if (evt.key === 'Escape') {
+    closePopup(closeEachPopup)
   }
-}
-
-function toggleLike(e) {
-  const gridCard = e.target.closest('.grid-card__like-button');
-  gridCard.classList.toggle('grid-card__like-button_like_active');
-}
-
-function removeCard(e) {
-  const gridCard = e.target.closest('.grid-card');
-  gridCard.remove();
 }
 
 const closeByOverlay = function (e) {
@@ -107,15 +145,15 @@ closePopupAdd.addEventListener('click', function () {
 })
 
 popupButtonEdit.addEventListener('click', function () {
-  openPopup(popupEdit);
-  enableButton(buttonSaveProfile, config.inactiveButtonClass)
+  openPopup(popupEdit, formValidEdit);
+  formValidEdit.saveFormResult();
   inputName.value = profileName.textContent;
   inputJob.value = profileJob.textContent;
 })
 
 popupButtonAdd.addEventListener('click', function () {
-  openPopup(popupAdd);
-  disableButton(buttonCreateCard, config.inactiveButtonClass)
+  openPopup(popupAdd,formValidAdd);
+  formValidAdd.resetForm()
 })
 
 closePopupImage.addEventListener('click', function () {

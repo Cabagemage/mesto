@@ -1,13 +1,12 @@
-import {config, FormValidator} from './validate.js'
-import {initialCards} from './utils.js';
+import {config, FormValidator} from './FormValidator.js'
+import {initialCards} from './initialCards.js';
+import {Card} from './Card.js';
 const popupButtonEdit = document.querySelector('.profile__edit');
 const popupButtonAdd = document.querySelector('.profile__add');
 //popups
 const popupEdit = document.querySelector('.popup_function_edit');
 const popupAdd = document.querySelector('.popup_function_add');
 const popupOpenImage = document.querySelector('.popup_function_image');
-const popupImageWindow = document.querySelector('.image');
-const popupImageText = document.querySelector('.popup__container_content_name');
 //close popups
 const closePopupEdit = popupEdit.querySelector('.popup_close_edit');
 const closePopupAdd = popupAdd.querySelector('.popup_close_add');
@@ -21,74 +20,10 @@ const inputName = document.querySelector('.popup__input_type_name');
 const inputJob = document.querySelector('.popup__input_type_job');
 const inputPlace = document.querySelector('.popup__input_type_place');
 const inputLink = document.querySelector('.popup__input_type_link');
-const gridCardsTemplateElement = document.querySelector('.grid-card-template')
-const gridCardElements = document.querySelector('.elements');
-const buttonCreateCard = document.querySelector('.popup__save_function_create');
-const buttonSaveProfile = document.querySelector('.popup__save_function_edit')
-
 const formValidAdd  = new FormValidator(config, formElementAdd);
 formValidAdd.enableValidation();
 const formValidEdit  = new FormValidator(config, formElementEdit);
 formValidEdit.enableValidation();
-
-class Card {
-  constructor(data) {
-    this.name = data.name;
-    this.link = data.link;
-  }
-  // метод получение темплейта 
-  _gridCardTemplate() {
-    const gridCard = document
-      .querySelector('.grid-card-template')
-      .content
-      .querySelector('.grid-card')
-      .cloneNode(true);
-    return gridCard
-  }
-
-  generateCard() {
-    this._element = this._gridCardTemplate();
-    this._element.querySelector('.grid-card__photo').src = this.link;
-    this._element.querySelector('.grid-card__photo').alt = `${this.name}`;
-    this._element.querySelector('.grid-card__title').textContent = this.name;
-    this._setEventListeners();
-    return this._element;
-  }
-  // метод удаления карточки
-  _handleRemoveCard() {
-    this._element.remove();
-  }
-  // метод установки или удаления лайка
-  _handleLikeCard() {
-    this._element.querySelector('.grid-card__like-button').classList.toggle('grid-card__like-button_like_active');
-  }
-  //Метод открытия попапа с изображением
-  _handleOpenPopup() {
-    const image = this.link;
-    const name = this.name;
-    popupImageWindow.src = image;
-    popupImageText.textContent = `${name}`;
-    popupImageWindow.alt = `${name}`;
-    popupOpenImage.classList.add('popup_opened');
-  }
-//Метод установки слушателей 
-  _setEventListeners() {
-    this._element.querySelector('.grid-card__photo').addEventListener('click', () => {
-      this._handleOpenPopup();
-      document.addEventListener('keyup', closeByEscape);
-    });
-    {
-      this._element.querySelector('.grid-card__like-button').addEventListener('click', () => {
-        this._handleLikeCard();
-      });
-    }
-    {
-      this._element.querySelector('.grid-card__remove').addEventListener('click', () => {
-        this._handleRemoveCard();
-      });
-    }
-  }
-}
 
 const addNewCard = () => {
   const nameAndLink = {

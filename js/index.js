@@ -1,6 +1,7 @@
-import {config, FormValidator} from './FormValidator.js'
+import {FormValidator} from './FormValidator.js'
 import {initialCards} from './initialCards.js';
 import {Card} from './Card.js';
+
 const popupButtonEdit = document.querySelector('.profile__edit');
 const popupButtonAdd = document.querySelector('.profile__add');
 //popups
@@ -20,6 +21,16 @@ const inputName = document.querySelector('.popup__input_type_name');
 const inputJob = document.querySelector('.popup__input_type_job');
 const inputPlace = document.querySelector('.popup__input_type_place');
 const inputLink = document.querySelector('.popup__input_type_link');
+
+const config = {
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__save',
+  inactiveButtonClass: 'popup__save_disabled',
+  formSelector: '.popup__form',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+}
+
 const formValidAdd  = new FormValidator(config, formElementAdd);
 formValidAdd.enableValidation();
 const formValidEdit  = new FormValidator(config, formElementEdit);

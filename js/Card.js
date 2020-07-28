@@ -1,4 +1,5 @@
 export {Card};
+
 class Card {
     constructor(data) {
       this.name = data.name;

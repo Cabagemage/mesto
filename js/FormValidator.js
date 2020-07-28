@@ -1,15 +1,4 @@
-export {config, FormValidator};
-
-const config = {
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__save',
-  inactiveButtonClass: 'popup__save_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-}
-const form = {
-  formSelector: '.popup__form'
-}
+export {FormValidator};
 
 class FormValidator {
   constructor(config, form) {

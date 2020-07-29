@@ -1,6 +1,9 @@
+//Прошу прощения за эти накладки с ошибками, в последний раз не проверил должным образом работоспособность
+
 import {FormValidator} from './FormValidator.js'
 import {initialCards} from './initialCards.js';
 import {Card} from './Card.js';
+export {closeByEscape, popupOpenImage, popupImageWindow, popupImageText};
 
 const popupButtonEdit = document.querySelector('.profile__edit');
 const popupButtonAdd = document.querySelector('.profile__add');
@@ -8,6 +11,8 @@ const popupButtonAdd = document.querySelector('.profile__add');
 const popupEdit = document.querySelector('.popup_function_edit');
 const popupAdd = document.querySelector('.popup_function_add');
 const popupOpenImage = document.querySelector('.popup_function_image');
+const popupImageWindow = document.querySelector('.image'); 
+const popupImageText = document.querySelector('.popup__container_content_name');
 //close popups
 const closePopupEdit = popupEdit.querySelector('.popup_close_edit');
 const closePopupAdd = popupAdd.querySelector('.popup_close_add');

@@ -1,4 +1,5 @@
 export {Card};
+import {closeByEscape, popupOpenImage, popupImageWindow, popupImageText} from './index.js'
 
 class Card {
     constructor(data) {

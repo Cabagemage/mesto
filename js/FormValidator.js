@@ -1,4 +1,4 @@
-export {FormValidator};
+export { FormValidator };
 
 class FormValidator {
   constructor(config, form) {
@@ -11,10 +11,10 @@ class FormValidator {
   }
 
   enableValidation = () => {
-  this._checkInputs(this._form)
-      this._form.addEventListener('submit', function (evt) {
-        evt.preventDefault()
-      })
+    this._checkInputs(this._form)
+    this._form.addEventListener('submit', function (evt) {
+      evt.preventDefault()
+    })
   }
 
   _checkInputs = (form) => {
@@ -39,9 +39,9 @@ class FormValidator {
     this._buttonActive.setAttribute('disabled', true);
   }
 
-  resetForm = () =>{
+  resetForm = () => {
     this._disableButton();
-   } 
+  }
   saveFormResult = () => {
     this._enableButton();
   }
@@ -59,7 +59,7 @@ class FormValidator {
       return currentInput.validity.valid;
     });
   }
-  
+
   _showInputError = (currentInput) => {
     const errorPlace = this._getErrorPlace(currentInput);
     errorPlace.classList.add(this._errorClass);

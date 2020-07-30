@@ -1,9 +1,9 @@
-//Прошу прощения за эти накладки с ошибками, в последний раз не проверил должным образом работоспособность
+//Все обязательные замечания, вроде бы, исправлены. 
 
-import {FormValidator} from './FormValidator.js'
-import {initialCards} from './initialCards.js';
-import {Card} from './Card.js';
-export {closeByEscape, popupOpenImage, popupImageWindow, popupImageText};
+import { FormValidator } from './FormValidator.js'
+import { initialCards } from './initialCards.js';
+import { Card } from './Card.js';
+export { closeByEscape, popupOpenImage, popupImageWindow, popupImageText };
 
 const popupButtonEdit = document.querySelector('.profile__edit');
 const popupButtonAdd = document.querySelector('.profile__add');
@@ -11,7 +11,7 @@ const popupButtonAdd = document.querySelector('.profile__add');
 const popupEdit = document.querySelector('.popup_function_edit');
 const popupAdd = document.querySelector('.popup_function_add');
 const popupOpenImage = document.querySelector('.popup_function_image');
-const popupImageWindow = document.querySelector('.image'); 
+const popupImageWindow = document.querySelector('.image');
 const popupImageText = document.querySelector('.popup__container_content_name');
 //close popups
 const closePopupEdit = popupEdit.querySelector('.popup_close_edit');
@@ -36,9 +36,9 @@ const config = {
   errorClass: 'popup__error_visible'
 }
 
-const formValidAdd  = new FormValidator(config, formElementAdd);
+const formValidAdd = new FormValidator(config, formElementAdd);
 formValidAdd.enableValidation();
-const formValidEdit  = new FormValidator(config, formElementEdit);
+const formValidEdit = new FormValidator(config, formElementEdit);
 formValidEdit.enableValidation();
 
 const addNewCard = () => {
@@ -46,24 +46,36 @@ const addNewCard = () => {
     name: inputPlace.value,
     link: inputLink.value,
   };
-  const renderNewCard = new Card(nameAndLink);
-  const gridCard = renderNewCard.generateCard();
-  renderCards(gridCard);
+  const createNewCard = createGridCard(nameAndLink, '.grid-card-template');
+  createNewCards(createNewCard)
   closePopup(popupAdd)
   inputPlace.value = '';
   inputLink.value = ''
 }
 
-const renderCards = (gridCard) => {
-  document.querySelector('.elements').prepend(gridCard)
-  }
-
-//Цикл перебора карточек
-initialCards.forEach(item => {
-  const card = new Card(item, '.grid-card-template')
+function createGridCard(data, templateSelector) {
+  const card = new Card(data, templateSelector)
   const gridCard = card.generateCard();
-  renderCards(gridCard);
-});
+  return gridCard
+}
+
+const createNewCards = (item) => {
+  document.querySelector('.elements').prepend(item)
+}
+
+const createDefaultCards = (data) => {
+  const defaultCards = createGridCard(data, '.grid-card-template');
+  document.querySelector('.elements').append(defaultCards)
+
+}
+
+const renderCards = () => {
+  initialCards.forEach(data => {
+    createDefaultCards(data)
+  })
+}
+
+renderCards()
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
@@ -103,7 +115,7 @@ popupButtonEdit.addEventListener('click', function () {
 })
 
 popupButtonAdd.addEventListener('click', function () {
-  openPopup(popupAdd,formValidAdd);
+  openPopup(popupAdd, formValidAdd);
   formValidAdd.resetForm()
 })
 

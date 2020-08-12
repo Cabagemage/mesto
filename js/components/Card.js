@@ -1,11 +1,12 @@
-export { Card };
-import { closeByEscape, popupOpenImage, popupImageWindow, popupImageText } from './index.js'
 
+import { closeByEscape} from '../utils/utils.js'
+import {popupOpenImage, popupImageWindow, popupImageText } from '../utils/constants.js' 
 
-class Card {
-  constructor(data, templateSelector) {
+export default class Card {
+  constructor({data, handleCardClick }, templateSelector) {
     this.name = data.name;
     this.link = data.link;
+    this.handleCardClick = handleCardClick;
     this.templateSelector = templateSelector;
   }
   // метод получение темплейта 

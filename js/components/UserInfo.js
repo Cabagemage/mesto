@@ -1,16 +1,16 @@
-export default class UserInfo{
-    constructor({name, about}){
-        this._profileName = name;
-        this._profileAbout = about;
+export default class UserInfo {
+    constructor({ name, job }) {
+        this.profileName = name;
+        this.profileJob = job;
     }
-    getUserInfo(){
+    getUserInfo() {
         return {
-        name: this._profileName.textContent,
-        about: this._profileAbout.textContent,
+            name: this.profileName.textContent,
+            job: this.profileJob.textContent,
         }
     }
-    setUserInfo({name, about}){
-        this._profileName.textContent = name;
-        this._profileAbout.textContent = about; 
+    setUserInfo({ name, job }) {
+        this.profileName.textContent = name;
+        this.profileJob.textContent = job;
     }
 } 

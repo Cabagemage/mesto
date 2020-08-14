@@ -1,13 +1,13 @@
 import Popup from '../components/Popup.js';
-import {popupImageWindow, popupImageText} from '../utils/constants.js'
+import { popupImageWindow, popupImageText } from '../utils/constants.js'
 
 export default class PopupWithImage extends Popup {
-    constructor(popupSelector){
+    constructor(popupSelector) {
         super(popupSelector)
         this.link = image;
         this.name = name
     }
-    openPopup(){
+    openPopup() {
         const image = this.link;
         const name = this.name;
         popupImageWindow.src = image;
@@ -15,5 +15,5 @@ export default class PopupWithImage extends Popup {
         popupImageWindow.alt = `${name}`;
         super.openPopup();
     }
-    
+
 }

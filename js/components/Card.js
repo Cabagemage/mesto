@@ -1,9 +1,9 @@
 
-import { closeByEscape} from '../utils/utils.js'
-import {popupOpenImage, popupImageWindow, popupImageText } from '../utils/constants.js' 
+import { closeByEscape } from '../utils/utils.js'
+import { popupOpenImage, popupImageWindow, popupImageText } from '../utils/constants.js'
 
 export default class Card {
-  constructor({data, handleCardClick }, templateSelector) {
+  constructor({ data, handleCardClick }, templateSelector) {
     this.name = data.name;
     this.link = data.link;
     this.handleCardClick = handleCardClick;

@@ -21,8 +21,8 @@ export default class PopupWithForm extends Popup {
             this.handleFormSubmit(data)
         })
     }
-    closePopup() {
-        super.closePopup()
+    close() {
+        super.close()
         this._popupSelector.querySelector('.popup__form').reset()
     }
 }

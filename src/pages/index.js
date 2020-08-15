@@ -1,14 +1,15 @@
 import './index.css'; 
-import FormValidator from './components/FormValidator.js'
-import Card from './components/Card.js';
-import Section from './components/Section.js'
-import PopupWithImage from './components/Popup.js';
-import PopupWithForm from './components/PopupWithForm.js';
-import UserInfo from './components/UserInfo.js';
+
+import FormValidator from '../components/FormValidator.js'
+import Card from '../components/Card.js';
+import Section from '../components/Section.js'
+import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js';
 import {
   popupButtonEdit, popupButtonAdd, closePopupEdit, closePopupAdd, closePopupImage,
   formElementEdit, formElementAdd, inputName, inputJob, config, initialCards, userValues
-} from './utils/constants.js'
+} from '../utils/constants.js'
 
 
 const formValidAdd = new FormValidator(config, formElementAdd);
@@ -16,16 +17,15 @@ formValidAdd.enableValidation();
 const formValidEdit = new FormValidator(config, formElementEdit);
 formValidEdit.enableValidation();
 
-
 const popupImage = new PopupWithImage('.popup_function_image')
-popupImage.setEventListeners()
+  popupImage.setEventListeners()
+
 
 function createNewCard(data) {
 
   const createCard = new Card({
     data, handleCardClick: () => {
-
-      this._element.querySelector('.grid-card__photo').addEventListener('click', () => popupImage.open())
+     popupImage.open(data)
     }
   }, '.grid-card-template');
 
@@ -50,7 +50,7 @@ const popupAdd = new PopupWithForm('.popup_function_add',
     handleFormSubmit: (data) => {
       createNewCard(data)
 
-      popupAdd.closePopup()
+      popupAdd.close()
     }
   })
 popupAdd.setEventListeners()
@@ -61,7 +61,7 @@ const popupToEdit = new PopupWithForm('.popup_function_edit',
   {
     handleFormSubmit: (data) => {
       userInformation.setUserInfo(data)
-      popupToEdit.closePopup()
+      popupToEdit.close()
     }
   })
 popupToEdit.setEventListeners()
@@ -69,27 +69,27 @@ popupToEdit.setEventListeners()
 
 
 closePopupEdit.addEventListener('click', function () {
-  popupToEdit.closePopup()
+  popupToEdit.close()
 })
 
 closePopupAdd.addEventListener('click', function () {
-  popupAdd.closePopup();
+  popupAdd.close();
 })
 
 popupButtonEdit.addEventListener('click', () => {
   const getInfo = userInformation.getUserInfo()
   inputName.value = getInfo.name;
   inputJob.value = getInfo.job;
-  popupToEdit.openPopup()
-
+  popupToEdit.open()
+  formValidEdit.saveFormResult(); // теперь используется :) 
 
 })
 
 popupButtonAdd.addEventListener('click', () => {
-  popupAdd.openPopup();
+  popupAdd.open();
   formValidAdd.resetForm()
 })
 
 closePopupImage.addEventListener('click', function () {
-  popupImage.closePopup()
+  popupImage.close()
 });

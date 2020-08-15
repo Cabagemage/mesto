@@ -35,6 +35,7 @@ export const userValues = {
   job: profileJob
 }
 
+
 export const initialCards = [
   {
     name: 'Архыз',

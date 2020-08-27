@@ -30,10 +30,7 @@ export const config = {
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__error_visible'
 }
-export const userValues = {
-  name: profileName,
-  job: profileJob
-}
+
 
 
 export const initialCards = [

@@ -1,5 +1,5 @@
 import { data } from "jquery";
-
+// Попытка задеплоить
 export default class Api {
     constructor({ baseUrl, headers }) {
         this.baseUrl = baseUrl;
@@ -18,7 +18,7 @@ export default class Api {
             .then(res => res.json())
     }
 
-    // Метод для создания новой карточки
+    // Метод для создания новой карточки 
     postNewCard(data) {
         return fetch(`${this.baseUrl}/cards`, {
             method: 'POST',

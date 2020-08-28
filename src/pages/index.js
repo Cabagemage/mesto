@@ -13,9 +13,12 @@ import {
   popupButtonAdd,
   closePopupEdit,
   closePopupAdd,
+  closePopupRemoveButton,
   closePopupImage,
+  closePopupAvatar,
   formElementEdit,
   formElementAdd,
+  formElementAvatar,
   inputName,
   inputJob,
   config
@@ -28,7 +31,8 @@ const formValidAdd = new FormValidator(config, formElementAdd);
 formValidAdd.enableValidation();
 const formValidEdit = new FormValidator(config, formElementEdit);
 formValidEdit.enableValidation();
-
+const formValidAvatar = new FormValidator(config, formElementAvatar);
+formValidAvatar.enableValidation();
 
 
 let userId;
@@ -116,12 +120,10 @@ api.getAppinfo().then(res => {
 
   defaultSection.renderAppend()
 
-
   const avatarPopupOpen = document.querySelector('.profile__avatar')
   avatarPopupOpen.addEventListener('click', () => {
     popupAvatar.open()
   })
-
 
   const popupAvatar = new PopupWithForm('.popup_function_avatar',
     {
@@ -129,11 +131,10 @@ api.getAppinfo().then(res => {
         buttonPreloader(true, '.popup__save_function_create')
         userInformation.setUserAvatar(data.avatar);
         api.changeProfileAvatar(data.avatar)
+        formValidAvatar.resetForm();
         popupAvatar.close()
       }
     })
-
-
 
   const popupToEdit = new PopupWithForm('.popup_function_edit',
     {
@@ -147,13 +148,9 @@ api.getAppinfo().then(res => {
       }
     })
 
-
-
-
   closePopupEdit.addEventListener('click', function () {
     popupToEdit.close()
   })
-
 
   popupButtonEdit.addEventListener('click', () => {
     const getInfo = userInformation.getUserInfo()
@@ -185,11 +182,11 @@ api.getAppinfo().then(res => {
     removePopup, 
     createNewCard } = res;
 
-
   popupButtonAdd.addEventListener('click', () => {
     popupAdd.open();
     formValidAdd.resetForm()
   })
+
   const popupAdd = new PopupWithForm('.popup_function_add',
     {
       handleFormSubmit: (data) => {
@@ -198,11 +195,19 @@ api.getAppinfo().then(res => {
           createNewCard(res)
           popupAdd.close();
         }).finally(_ => buttonPreloader(false, '.popup__save_function_create'))
-
       }
     })
+
   closePopupAdd.addEventListener('click', function () {
     popupAdd.close();
+  })
+
+  closePopupAvatar.addEventListener('click', function () {
+    popupAvatar.close();
+  })
+
+  closePopupRemoveButton.addEventListener('click', function () {
+    removePopup.close();
   })
 
   popupAdd.setEventListeners()
@@ -210,7 +215,8 @@ api.getAppinfo().then(res => {
   popupToEdit.setEventListeners()
   popupImage.setEventListeners()
   removePopup.setEventListeners();
-}).finally(_ => pagePreloader(false))
+}).catch(err => console.log(err))
+.finally(_ => pagePreloader(false))
 
 
 

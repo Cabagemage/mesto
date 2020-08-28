@@ -11,11 +11,14 @@ export const closePopupButton = document.querySelector('.popup__close');
 export const closePopupEdit = popupEdit.querySelector('.popup_close_edit');
 export const closePopupAdd = popupAdd.querySelector('.popup_close_add');
 export const closePopupImage = popupOpenImage.querySelector('.popup__close_current_image');
+export const closePopupAvatar = document.querySelector('.popup_close_avatar')
+export const closePopupRemoveButton = document.querySelector('.popup_close_remove')
 // popups forms/inputs
 export const profileName = document.querySelector('.profile__name');
 export const profileJob = document.querySelector('.profile__subtitle');
 export const formElementEdit = document.querySelector('.popup__form_function_edit');
 export const formElementAdd = document.querySelector('.popup__form_function_add');
+export const formElementAvatar = document.querySelector('.popup__form_function_avatar')
 export const inputName = document.querySelector('.popup__input_type_name');
 export const inputJob = document.querySelector('.popup__input_type_job');
 export const inputPlace = document.querySelector('.popup__input_type_place');

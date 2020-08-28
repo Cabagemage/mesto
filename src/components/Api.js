@@ -37,7 +37,6 @@ export default class Api {
             headers: this.headers
         })
             .then(res => res.json())
-
     }
     // Метод для получения инфы профиля
     getUserInformation() {

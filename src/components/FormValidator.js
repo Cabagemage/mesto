@@ -29,28 +29,23 @@ export default class FormValidator {
     });
 
   }
-  _enableButton = () => {
+  enableButton = () => {
     this._buttonActive.classList.remove('popup__save_disabled');
     this._buttonActive.removeAttribute('disabled');
   }
-  _disableButton = () => {
+  disableButton = () => {
     this._buttonActive.classList.add('popup__save_disabled');
     this._buttonActive.setAttribute('disabled', true);
+    
   }
 
-  resetForm = () => {
-    this._disableButton();
-  }
-  saveFormResult = () => {
-    this._enableButton();
-  }
-
+ 
   _toggleButtons = (currentInput) => {
     if (this._checkValidity(currentInput, this._inputList)) {
-      this._enableButton();
+      this.enableButton();
     }
     else {
-      this._disableButton();
+      this.disableButton();
     }
   }
   _checkValidity = (currentInput) => {

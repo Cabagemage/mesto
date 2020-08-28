@@ -6,6 +6,12 @@ export default class Api {
         this.headers = headers;
     }
 
+    checkStatus(res){
+        if (res.ok){
+        return res.json()}
+        else{return Promise.reject(`Ошибка: ${res.status}`)}
+    }
+
     getAppinfo() {
         return Promise.all([this.getInitialCards(), this.getUserInformation()])
     }
@@ -15,7 +21,7 @@ export default class Api {
         return fetch(`${this.baseUrl}/cards`, {
             headers: this.headers
         })
-            .then(res => res.json())
+            .then(this.checkStatus)
     }
 
     // Метод для создания новой карточки 
@@ -28,7 +34,7 @@ export default class Api {
                 link: data.link,
             }),
         })
-            .then(res => res.json())
+        .then(this.checkStatus)
     };
     // Метод для удаления карточки
     deleteThisCard(cardId) {
@@ -36,14 +42,14 @@ export default class Api {
             method: 'Delete',
             headers: this.headers
         })
-            .then(res => res.json())
+        .then(this.checkStatus)
     }
     // Метод для получения инфы профиля
     getUserInformation() {
         return fetch(`${this.baseUrl}/users/me`, {
             headers: this.headers,
         })
-            .then(res => res.json())
+        .then(this.checkStatus)
     }
     //Метод для изменения инфы профиля
     setUserInfo(newname, newabout) {
@@ -55,7 +61,7 @@ export default class Api {
                 about: newabout,
             })
 
-        }).then(res => res.json())
+        }).then(this.checkStatus)
 
     }
     //Метод для изменения аватарки
@@ -67,14 +73,14 @@ export default class Api {
                 avatar: newavatar
             })
 
-        }).then(res => res.json())
+        }).then(this.checkStatus)
     }
     // Лайкос
     putLikeToCard(cardId) {
         return fetch(`${this.baseUrl}/cards/likes/${cardId}`, {
             method: 'PUT',
             headers: this.headers
-        }).then(res => res.json())
+        }).then(this.checkStatus)
     }
 
     //Удаление лайкоса
@@ -82,6 +88,6 @@ export default class Api {
         return fetch(`${this.baseUrl}/cards/likes/${cardId}`, {
             method: 'DELETE',
             headers: this.headers
-        }).then(res => res.json())
+        }).then(this.checkStatus)
     }
 }

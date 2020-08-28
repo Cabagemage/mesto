@@ -4,20 +4,18 @@ export default class PopupWithForm extends Popup {
         super(popupSelector)
         this._form = this._popupSelector.querySelector('.popup__form_function_remove')
     }
-    removeThisCard(handleDelete){
-        this.handleDeleteCallback = handleDelete;
+    setSubmitAction(handleSubmit){
+        this.handleSubmitCallback = handleSubmit;
     }
 
     setEventListeners() {
         super.setEventListeners();
         this._form.addEventListener('submit', (evt) => {
             evt.preventDefault();
-            this.handleDeleteCallback()
-            this.close()
+            this.handleSubmitCallback()
         })
     }
     close() {
         super.close()
-        
     }
 }

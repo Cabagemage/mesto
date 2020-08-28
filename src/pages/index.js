@@ -11,11 +11,6 @@ import UserInfo from '../components/UserInfo.js';
 import {
   popupButtonEdit,
   popupButtonAdd,
-  closePopupEdit,
-  closePopupAdd,
-  closePopupRemoveButton,
-  closePopupImage,
-  closePopupAvatar,
   formElementEdit,
   formElementAdd,
   formElementAvatar,
@@ -62,10 +57,11 @@ api.getAppinfo().then(res => {
     userId: info._id,
   });
   userInformation.setUserAvatar(info.avatar)
+
   function createNewCard(data) {
 
 
-    const createCard = new Card(
+    const card = new Card(
       {
         userId: info._id,
         data: {
@@ -81,32 +77,33 @@ api.getAppinfo().then(res => {
         handleLikeClick: () => {
           api.putLikeToCard(data._id, info._id)
             .then(data => {
-              createCard.updateLikes(data.likes);
-              createCard.toggleLike();
+              card.updateLikes(data.likes);
+              card.toggleLike();
             });
         },
         handleDislikeClick: () => {
           api.deleteLikeOfCard(data._id, info._id) //юзерайди
             .then(data => {
-              createCard.updateLikes(data.likes);//юзерайди
-              createCard.toggleLike();
+              card.updateLikes(data.likes);//юзерайди
+              card.toggleLike();
             })
 
         },
         handleDeleteIconClick: () => {
           removePopup.open()
-          removePopup.removeThisCard (() => {
+          removePopup.setSubmitAction (() => {
           api.deleteThisCard(data._id)
             .then(id => {
-              removePopup.removeThisCard(id)
-              createCard.handleRemoveCard();
+              removePopup.close()
+              removePopup.setSubmitAction(id)
+              card.handleRemoveCard();
             })
           })
         },
       }, '.grid-card-template');
 
-    const getNewCard = createCard.generateCard()
-    defaultSection.addItemPrepend(getNewCard)
+    const getNewCard = card.generateCard()
+    defaultSection.addItemAppend(getNewCard)
   }
 
   const popupImage = new PopupWithImage('.popup_function_image')
@@ -123,16 +120,20 @@ api.getAppinfo().then(res => {
   const avatarPopupOpen = document.querySelector('.profile__avatar')
   avatarPopupOpen.addEventListener('click', () => {
     popupAvatar.open()
+    formValidAvatar.disableButton();
   })
 
   const popupAvatar = new PopupWithForm('.popup_function_avatar',
     {
       handleFormSubmit: (data) => {
         buttonPreloader(true, '.popup__save_function_create')
-        userInformation.setUserAvatar(data.avatar);
         api.changeProfileAvatar(data.avatar)
-        formValidAvatar.resetForm();
+        .then(res =>{
+        userInformation.setUserAvatar(res.avatar)
+        formValidAvatar.disableButton()
         popupAvatar.close()
+      }).catch(err => console.log(err))
+      .finally(_ => buttonPreloader(false, '.popup__save_function_create'))
       }
     })
 
@@ -142,27 +143,23 @@ api.getAppinfo().then(res => {
         buttonPreloader(true, '.popup__save_function_edit')
         api.setUserInfo(data.name, data.about).then(res =>{
         userInformation.setUserInfo(res);
+        popupToEdit.close()
         })
         .finally(_ => buttonPreloader(false, '.popup__save_function_edit'))
-        popupToEdit.close()
       }
     })
 
-  closePopupEdit.addEventListener('click', function () {
-    popupToEdit.close()
-  })
 
   popupButtonEdit.addEventListener('click', () => {
-    const getInfo = userInformation.getUserInfo()
-    inputName.value = getInfo.name;
-    inputJob.value = getInfo.about;
     popupToEdit.open()
-    formValidEdit.saveFormResult();
+    api.getUserInformation().then(res =>{
+    inputName.value = res.name;
+    inputJob.value = res.about;
+    formValidEdit.enableButton();
+    })
   })
 
-  closePopupImage.addEventListener('click', function () {
-    popupImage.close()
-  });
+
   
   return { 
       createNewCard, 
@@ -184,7 +181,7 @@ api.getAppinfo().then(res => {
 
   popupButtonAdd.addEventListener('click', () => {
     popupAdd.open();
-    formValidAdd.resetForm()
+    formValidAdd.disableButton()
   })
 
   const popupAdd = new PopupWithForm('.popup_function_add',
@@ -198,17 +195,7 @@ api.getAppinfo().then(res => {
       }
     })
 
-  closePopupAdd.addEventListener('click', function () {
-    popupAdd.close();
-  })
 
-  closePopupAvatar.addEventListener('click', function () {
-    popupAvatar.close();
-  })
-
-  closePopupRemoveButton.addEventListener('click', function () {
-    removePopup.close();
-  })
 
   popupAdd.setEventListeners()
   popupAvatar.setEventListeners()

@@ -72,7 +72,6 @@ api.getAppinfo().then(res => {
         },
         handleCardClick: () => {
           popupImage.open(data)
-          console.log(userId)
         },
 
         handleLikeClick: () => {
@@ -80,7 +79,6 @@ api.getAppinfo().then(res => {
             .then(data => {
               createCard.updateLikes(data.likes);
               createCard.toggleLike();
-              console.log(info._id)
             });
         },
         handleDislikeClick: () => {
@@ -93,11 +91,13 @@ api.getAppinfo().then(res => {
         },
         handleDeleteIconClick: () => {
           removePopup.open()
+          removePopup.removeThisCard (() => {
           api.deleteThisCard(data._id)
-            .then(() => {
-              removePopup.removeThisCard
+            .then(id => {
+              removePopup.removeThisCard(id)
               createCard.handleRemoveCard();
             })
+          })
         },
       }, '.grid-card-template');
 
@@ -107,7 +107,7 @@ api.getAppinfo().then(res => {
 
   const popupImage = new PopupWithImage('.popup_function_image')
   const removePopup = new PopupWithSubmit('.popup_function_remove')
-  removePopup.setEventListeners()
+
   const defaultSection = new Section(
     {
       items: initialCards,
@@ -138,9 +138,11 @@ api.getAppinfo().then(res => {
   const popupToEdit = new PopupWithForm('.popup_function_edit',
     {
       handleFormSubmit: (data) => {
-        buttonPreloader(true, '.popup__save')
-        userInformation.setUserInfo(data);
-        api.setUserInfo(data.name, data.about)
+        buttonPreloader(true, '.popup__save_function_edit')
+        api.setUserInfo(data.name, data.about).then(res =>{
+        userInformation.setUserInfo(res);
+        })
+        .finally(_ => buttonPreloader(false, '.popup__save_function_edit'))
         popupToEdit.close()
       }
     })
@@ -195,7 +197,7 @@ api.getAppinfo().then(res => {
         api.postNewCard(data).then((res) => {
           createNewCard(res)
           popupAdd.close();
-        })
+        }).finally(_ => buttonPreloader(false, '.popup__save_function_create'))
 
       }
     })
@@ -209,6 +211,7 @@ api.getAppinfo().then(res => {
   popupImage.setEventListeners()
   removePopup.setEventListeners();
 }).finally(_ => pagePreloader(false))
+
 
 
 

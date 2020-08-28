@@ -2,17 +2,17 @@ import Popup from '../components/Popup.js';
 export default class PopupWithForm extends Popup {
     constructor(popupSelector) {
         super(popupSelector)
-        
+        this._form = this._popupSelector.querySelector('.popup__form_function_remove')
     }
     removeThisCard(handleDelete){
-        this.handleDeleteIconClick = handleDelete;
+        this.handleDeleteCallback = handleDelete;
     }
 
     setEventListeners() {
         super.setEventListeners();
-        this._popupSelector.addEventListener('submit', (evt) => {
+        this._form.addEventListener('submit', (evt) => {
             evt.preventDefault();
-            this.removeThisCard()
+            this.handleDeleteCallback()
             this.close()
         })
     }

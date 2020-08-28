@@ -32,7 +32,6 @@ export default class Card {
     this._likeCounter = this._element.querySelector('.grid-card__like-counter')
     this._likeCounter.textContent = `${this.likes.length}`;
     this._photo.src = this.link;
-    console.log(this.owner)
     this.button = this._element.querySelector('.grid-card__like-button');
     this._photo.alt = `${this.name}`;
     this._title.textContent = this.name;
@@ -85,7 +84,7 @@ export default class Card {
     })
     
     {
-      this._element.querySelector('.grid-card__remove').addEventListener('click', () => { this.handleDeleteIconClick(this._id); 
+      this._element.querySelector('.grid-card__remove').addEventListener('click', () => { this.handleDeleteIconClick(); 
   
       });
     }

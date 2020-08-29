@@ -19,7 +19,7 @@ import {
   config
 }
   from '../utils/constants.js'
-import {buttonPreloader, pagePreloader} from '../utils/preloader.js'
+import { buttonPreloader, pagePreloader } from '../utils/preloader.js'
 import { data } from 'jquery';
 
 const formValidAdd = new FormValidator(config, formElementAdd);
@@ -30,7 +30,7 @@ const formValidAvatar = new FormValidator(config, formElementAvatar);
 formValidAvatar.enableValidation();
 
 
-let userId;
+
 
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-14',
@@ -58,7 +58,10 @@ api.getAppinfo().then(res => {
   });
   userInformation.setUserAvatar(info.avatar)
 
-  function createNewCard(data) {
+
+
+  function createNewCard(data, toAppend) {
+
 
 
     const card = new Card(
@@ -91,31 +94,33 @@ api.getAppinfo().then(res => {
         },
         handleDeleteIconClick: () => {
           removePopup.open()
-          removePopup.setSubmitAction (() => {
-          api.deleteThisCard(data._id)
-            .then(id => {
-              removePopup.close()
-              removePopup.setSubmitAction(id)
-              card.handleRemoveCard();
-            })
+          removePopup.setSubmitAction(() => {
+            api.deleteThisCard(data._id)
+              .then(id => {
+                removePopup.close()
+                card.handleRemoveCard();
+              })
           })
         },
       }, '.grid-card-template');
 
-    const getNewCard = card.generateCard()
-    defaultSection.addItemAppend(getNewCard)
+    if (toAppend) {
+      defaultSection.addItemAppend(card.generateCard())
+    }
+    else { defaultSection.addItemPrepend(card.generateCard()) }
   }
-
-  const popupImage = new PopupWithImage('.popup_function_image')
-  const removePopup = new PopupWithSubmit('.popup_function_remove')
 
   const defaultSection = new Section(
     {
       items: initialCards,
-      renderer: createNewCard
+      renderer: (item) => { createNewCard(item, true) }
     }, '.elements');
+  defaultSection.render()
 
-  defaultSection.renderAppend()
+  const popupImage = new PopupWithImage('.popup_function_image')
+  const removePopup = new PopupWithSubmit('.popup_function_remove')
+
+
 
   const avatarPopupOpen = document.querySelector('.profile__avatar')
   avatarPopupOpen.addEventListener('click', () => {
@@ -128,12 +133,12 @@ api.getAppinfo().then(res => {
       handleFormSubmit: (data) => {
         buttonPreloader(true, '.popup__save_function_create')
         api.changeProfileAvatar(data.avatar)
-        .then(res =>{
-        userInformation.setUserAvatar(res.avatar)
-        formValidAvatar.disableButton()
-        popupAvatar.close()
-      }).catch(err => console.log(err))
-      .finally(_ => buttonPreloader(false, '.popup__save_function_create'))
+          .then(res => {
+            userInformation.setUserAvatar(res.avatar)
+            formValidAvatar.disableButton()
+            popupAvatar.close()
+          }).catch(err => console.log(err))
+          .finally(_ => buttonPreloader(false, '.popup__save_function_create'))
       }
     })
 
@@ -141,69 +146,70 @@ api.getAppinfo().then(res => {
     {
       handleFormSubmit: (data) => {
         buttonPreloader(true, '.popup__save_function_edit')
-        api.setUserInfo(data.name, data.about).then(res =>{
-        userInformation.setUserInfo(res);
-        popupToEdit.close()
+        api.setUserInfo(data.name, data.about).then(res => {
+          userInformation.setUserInfo(res);
+          popupToEdit.close()
         })
-        .finally(_ => buttonPreloader(false, '.popup__save_function_edit'))
+          .finally(_ => buttonPreloader(false, '.popup__save_function_edit'))
       }
     })
 
 
   popupButtonEdit.addEventListener('click', () => {
     popupToEdit.open()
-    api.getUserInformation().then(res =>{
-    inputName.value = res.name;
-    inputJob.value = res.about;
-    formValidEdit.enableButton();
+    api.getUserInformation().then(res => {
+      inputName.value = res.name;
+      inputJob.value = res.about;
+      formValidEdit.enableButton();
     })
   })
 
 
-  
-  return { 
-      createNewCard, 
-      popupAvatar, 
-      userInformation, 
-      popupToEdit, 
-      defaultSection, 
-      popupImage, 
-      removePopup }
-      
+
+  return {
+    createNewCard,
+    popupAvatar,
+    userInformation,
+    popupToEdit,
+    defaultSection,
+    popupImage,
+    removePopup
+  }
+
 })
-.then(res => {
-  const { 
-    popupAvatar, 
-    popupToEdit, 
-    popupImage, 
-    removePopup, 
-    createNewCard } = res;
+  .then(res => {
+    const {
+      popupAvatar,
+      popupToEdit,
+      popupImage,
+      removePopup,
+      createNewCard } = res;
 
-  popupButtonAdd.addEventListener('click', () => {
-    popupAdd.open();
-    formValidAdd.disableButton()
-  })
-
-  const popupAdd = new PopupWithForm('.popup_function_add',
-    {
-      handleFormSubmit: (data) => {
-        buttonPreloader(true, '.popup__save_function_create')
-        api.postNewCard(data).then((res) => {
-          createNewCard(res)
-          popupAdd.close();
-        }).finally(_ => buttonPreloader(false, '.popup__save_function_create'))
-      }
+    popupButtonAdd.addEventListener('click', () => {
+      popupAdd.open();
+      formValidAdd.disableButton()
     })
 
+    const popupAdd = new PopupWithForm('.popup_function_add',
+      {
+        handleFormSubmit: (data) => {
+          buttonPreloader(true, '.popup__save_function_create')
+          api.postNewCard(data).then((res) => {
+            createNewCard(res, false)
+            popupAdd.close();
+          }).finally(_ => buttonPreloader(false, '.popup__save_function_create'))
+        }
+      })
 
 
-  popupAdd.setEventListeners()
-  popupAvatar.setEventListeners()
-  popupToEdit.setEventListeners()
-  popupImage.setEventListeners()
-  removePopup.setEventListeners();
-}).catch(err => console.log(err))
-.finally(_ => pagePreloader(false))
+
+    popupAdd.setEventListeners()
+    popupAvatar.setEventListeners()
+    popupToEdit.setEventListeners()
+    popupImage.setEventListeners()
+    removePopup.setEventListeners();
+  }).catch(err => console.log(err))
+  .finally(_ => pagePreloader(false))
 
 
 
